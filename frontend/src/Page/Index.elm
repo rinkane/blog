@@ -1,6 +1,7 @@
 module Page.Index exposing (Data, Model, Msg, page)
 
 import DataSource exposing (DataSource)
+import Element exposing (Element, column, layout, link, row, text)
 import Head
 import Head.Seo as Seo
 import Page exposing (Page, StaticPayload)
@@ -66,4 +67,10 @@ view :
     -> StaticPayload Data RouteParams
     -> View Msg
 view maybeUrl sharedModel static =
-    View.placeholder "Index"
+    { body =
+        [ column
+            [ Element.paddingXY 24 16 ]
+            [ Element.text "Index" ]
+        ]
+    , title = "Index"
+    }

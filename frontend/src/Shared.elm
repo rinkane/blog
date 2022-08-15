@@ -2,6 +2,10 @@ module Shared exposing (Data, Model, Msg(..), SharedMsg(..), template)
 
 import Browser.Navigation
 import DataSource
+import Element exposing (Element, column, layout, link, row, text)
+import Element.Background
+import Element.Border
+import Element.Font as Font
 import Html exposing (Html)
 import Pages.Flags
 import Pages.PageUrl exposing (PageUrl)
@@ -95,6 +99,32 @@ view :
     -> View msg
     -> { body : Html msg, title : String }
 view sharedData page model toMsg pageView =
-    { body = Html.div [] pageView.body
+    { body =
+        layout
+            [ Element.width (Element.fill |> Element.minimum 700)
+            , Element.Background.color (Element.rgb255 0xF1 0xE7 0xED)
+            ]
+            (column
+                [ Element.width Element.fill ]
+                (header :: pageView.body)
+            )
     , title = pageView.title
     }
+
+
+header : Element msg
+header =
+    Element.row
+        [ Element.width Element.fill
+        , Element.height (Element.px 60)
+        , Element.paddingXY 24 8
+        , Element.Border.shadow { blur = 5, size = 1, offset = ( 0, 0 ), color = Element.rgba255 0x36 0x20 0x6E 0.8 }
+        , Element.Background.color (Element.rgb255 0x36 0x20 0x6E)
+        , Font.color (Element.rgb255 0xFF 0xFF 0xFF)
+        ]
+        [ Element.el [ Element.alignLeft ] <|
+            Element.link
+                [ Font.size 24
+                ]
+                { url = "/", label = text "ブックオフに潜む物の怪" }
+        ]
