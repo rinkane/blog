@@ -1,9 +1,12 @@
 module Page.Index exposing (Data, Model, Msg, page)
 
+import Array
+import Css exposing (..)
 import DataSource exposing (DataSource)
-import Element exposing (Element, column, layout, link, row, text)
 import Head
 import Head.Seo as Seo
+import Html.Styled exposing (text, toUnstyled)
+import Html.Styled.Attributes exposing (css)
 import Page exposing (Page, StaticPayload)
 import Pages.PageUrl exposing (PageUrl)
 import Pages.Url
@@ -68,9 +71,9 @@ view :
     -> View Msg
 view maybeUrl sharedModel static =
     { body =
-        [ column
-            [ Element.paddingXY 24 16 ]
-            [ Element.text "Index" ]
+        [ Html.Styled.div
+            [ css [ margin2 (px 24) (px 16) ] ]
+            (List.repeat 1000 (Html.Styled.div [] [ text "Index" ]))
         ]
     , title = "Index"
     }

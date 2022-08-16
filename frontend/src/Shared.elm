@@ -1,12 +1,12 @@
 module Shared exposing (Data, Model, Msg(..), SharedMsg(..), template)
 
 import Browser.Navigation
+import Css exposing (..)
+import Css.Global
 import DataSource
-import Element exposing (Element, column, layout, link, row, text)
-import Element.Background
-import Element.Border
-import Element.Font as Font
-import Html exposing (Html)
+import Html
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (css)
 import Pages.Flags
 import Pages.PageUrl exposing (PageUrl)
 import Path exposing (Path)
@@ -97,34 +97,63 @@ view :
     -> Model
     -> (Msg -> msg)
     -> View msg
-    -> { body : Html msg, title : String }
+    -> { body : Html.Html msg, title : String }
 view sharedData page model toMsg pageView =
     { body =
-        layout
-            [ Element.width (Element.fill |> Element.minimum 700)
-            , Element.Background.color (Element.rgb255 0xF1 0xE7 0xED)
-            ]
-            (column
-                [ Element.width Element.fill ]
-                (header :: pageView.body)
+        toUnstyled
+            (div
+                [ css
+                    [ minWidth (px 700)
+                    , height (pct 100)
+                    , margin (px 0)
+                    ]
+                ]
+                (global :: header :: pageView.body)
             )
     , title = pageView.title
     }
 
 
-header : Element msg
-header =
-    Element.row
-        [ Element.width Element.fill
-        , Element.height (Element.px 60)
-        , Element.paddingXY 24 8
-        , Element.Border.shadow { blur = 5, size = 1, offset = ( 0, 0 ), color = Element.rgba255 0x36 0x20 0x6E 0.8 }
-        , Element.Background.color (Element.rgb255 0x36 0x20 0x6E)
-        , Font.color (Element.rgb255 0xFF 0xFF 0xFF)
+global : Html msg
+global =
+    Css.Global.global
+        [ Css.Global.selector "body"
+            [ margin (px 0)
+            ]
+        , Css.Global.selector "html"
+            [ backgroundColor (rgb 0xF1 0xE7 0xED)
+            ]
         ]
-        [ Element.el [ Element.alignLeft ] <|
-            Element.link
-                [ Font.size 24
+
+
+header : Html msg
+header =
+    div
+        [ css
+            [ width auto
+            , height (px 60)
+            , boxShadow5 (px 0) (px 0) (px 5) (px 1) (rgba 0x36 0x20 0x6E 0.8)
+            , backgroundColor (rgb 0x36 0x20 0x6E)
+            , color (rgb 0xFF 0xFF 0xFF)
+            , displayFlex
+            , alignItems center
+            ]
+        ]
+        [ div
+            [ css
+                [ textAlign start
                 ]
-                { url = "/", label = text "ブックオフに潜む物の怪" }
+            ]
+            [ a
+                [ css
+                    [ fontSize (px 24)
+                    , padding2 (px 0) (px 24)
+                    , display inlineFlex
+                    , height (px 60)
+                    , alignItems center
+                    , cursor pointer
+                    ]
+                ]
+                [ text "ブックオフに潜む物の怪" ]
+            ]
         ]
