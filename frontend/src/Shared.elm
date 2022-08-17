@@ -103,12 +103,14 @@ view sharedData page model toMsg pageView =
         toUnstyled
             (div
                 [ css
-                    [ minWidth (px 700)
-                    , height (pct 100)
-                    , margin (px 0)
+                    [ height (pct 100)
+                    , margin2 (px 0) auto
                     ]
                 ]
-                (global :: header :: pageView.body)
+                [ global
+                , header
+                , pageBodyView pageView.body
+                ]
             )
     , title = pageView.title
     }
@@ -121,7 +123,7 @@ global =
             [ margin (px 0)
             ]
         , Css.Global.selector "html"
-            [ backgroundColor (rgb 0xF1 0xE7 0xED)
+            [ backgroundColor (rgb 0xF0 0xF0 0xF0)
             ]
         ]
 
@@ -135,25 +137,78 @@ header =
             , boxShadow5 (px 0) (px 0) (px 5) (px 1) (rgba 0x36 0x20 0x6E 0.8)
             , backgroundColor (rgb 0x36 0x20 0x6E)
             , color (rgb 0xFF 0xFF 0xFF)
-            , displayFlex
             , alignItems center
             ]
         ]
         [ div
             [ css
                 [ textAlign start
+                , pageMaxWidth
+                , displayFlex
+                , margin2 (px 0) auto
                 ]
             ]
-            [ a
-                [ css
-                    [ fontSize (px 24)
-                    , padding2 (px 0) (px 24)
-                    , display inlineFlex
-                    , height (px 60)
-                    , alignItems center
-                    , cursor pointer
+            [ headerLogo
+                [ text "ブックオフを守る翼竜"
+                , div
+                    [ css
+                        [ fontSize (px 14)
+                        , marginLeft (rem 0.25)
+                        , position relative
+                        , top (rem 0.25)
+                        ]
                     ]
+                    [ text "ver0.1" ]
                 ]
-                [ text "ブックオフに潜む物の怪" ]
+            , headerLink [ a [] [ text "Home" ] ]
             ]
         ]
+
+
+headerLogo : List (Html msg) -> Html msg
+headerLogo content =
+    div
+        [ css
+            (headerContentCss
+                ++ [ fontSize (px 24)
+                   , paddingRight (px 24)
+                   ]
+            )
+        ]
+        content
+
+
+headerLink : List (Html msg) -> Html msg
+headerLink content =
+    div
+        [ css
+            (headerContentCss
+                ++ [ padding2 (px 0) (px 24) ]
+            )
+        ]
+        content
+
+
+headerContentCss : List Style
+headerContentCss =
+    [ display inlineFlex
+    , height (px 60)
+    , alignItems center
+    , cursor pointer
+    ]
+
+
+pageBodyView : List (Html msg) -> Html msg
+pageBodyView content =
+    div
+        [ css
+            [ pageMaxWidth
+            , margin2 (px 0) auto
+            ]
+        ]
+        content
+
+
+pageMaxWidth : Style
+pageMaxWidth =
+    maxWidth (Css.em 50)
