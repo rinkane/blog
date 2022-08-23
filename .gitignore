@@ -2,3 +2,4 @@ frontend/.elm-pages
 frontend/elm-stuff
 frontend/node_modules
 frontend/src/Env
+dist
