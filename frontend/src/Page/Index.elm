@@ -1,12 +1,14 @@
 module Page.Index exposing (Data, Model, Msg, page)
 
-import Array
 import Css exposing (..)
 import DataSource exposing (DataSource)
+import DataSource.HttpSource as HttpSource
+import DataSource.MarkdownSource as MarkdownSource
 import Head
 import Head.Seo as Seo
-import Html.Styled exposing (text, toUnstyled)
+import Html.Styled exposing (text)
 import Html.Styled.Attributes exposing (css)
+import List
 import Page exposing (Page, StaticPayload)
 import Pages.PageUrl exposing (PageUrl)
 import Pages.Url
@@ -37,7 +39,7 @@ page =
 
 data : DataSource Data
 data =
-    DataSource.succeed ()
+    HttpSource.getBlog
 
 
 head :
@@ -61,7 +63,7 @@ head static =
 
 
 type alias Data =
-    ()
+    HttpSource.Blog
 
 
 view :
@@ -79,7 +81,13 @@ view maybeUrl sharedModel static =
                 , backgroundColor (rgb 0xFF 0xFF 0xFF)
                 ]
             ]
-            (List.repeat 10 (Html.Styled.div [] [ text "Index" ]))
+            (List.repeat 10
+                (Html.Styled.div []
+                    [ text
+                        (HttpSource.getFirstContent static.data).content
+                    ]
+                )
+            )
         ]
     , title = "Index"
     }
