@@ -125,6 +125,9 @@ global =
         , Css.Global.selector "html"
             [ backgroundColor (rgb 0xF0 0xF0 0xF0)
             ]
+        , Css.Global.selector "img"
+            [ maxWidth (pct 100)
+            ]
         ]
 
 

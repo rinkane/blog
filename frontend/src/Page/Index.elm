@@ -75,19 +75,13 @@ view maybeUrl sharedModel static =
     { body =
         [ Html.Styled.div
             [ css
-                [ padding2 (px 0) (px 16)
+                [ padding2 (px 8) (px 16)
                 , margin2 (px 24) (px 0)
                 , boxShadow5 (px 0) (px 0) (px 6) (px 1) (rgba 0x00 0x00 0x00 0.2)
                 , backgroundColor (rgb 0xFF 0xFF 0xFF)
                 ]
             ]
-            (List.repeat 10
-                (Html.Styled.div []
-                    [ text
-                        (HttpSource.getFirstContent static.data).content
-                    ]
-                )
-            )
+            [ Html.Styled.fromUnstyled (HttpSource.contentToHtml (HttpSource.getFirstContent static.data)) ]
         ]
     , title = "Index"
     }

@@ -3,10 +3,17 @@ module DataSource.HttpSource exposing (..)
 import DataSource exposing (DataSource)
 import DataSource.Http
 import Env.Environment exposing (blogRequestDetails)
+import Html exposing (Html)
 import List
+import Markdown exposing (defaultOptions)
 import OptimizedDecoder exposing (Decoder)
 import OptimizedDecoder.Pipeline exposing (..)
 import Pages.Secrets
+
+
+contentToHtml : Content -> Html msg
+contentToHtml content =
+    Markdown.toHtmlWith { defaultOptions | sanitize = False } [] content.content
 
 
 getFirstContent : Blog -> Content
