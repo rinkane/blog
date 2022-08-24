@@ -129,18 +129,6 @@ global =
         , Css.Global.selector "img"
             [ maxWidth (pct 100)
             ]
-        , Css.Global.selector "a"
-            [ textDecoration none
-            , Style.fontColorWhite
-            ]
-        , Css.Global.selector "a:hover"
-            [ textDecoration none
-            , Style.fontColorWhite
-            ]
-        , Css.Global.selector "a:visited"
-            [ textDecoration none
-            , Style.fontColorWhite
-            ]
         ]
 
 
@@ -214,6 +202,7 @@ headerContentCss =
     , alignItems center
     , cursor pointer
     ]
+        ++ Style.aTagFontColor
 
 
 pageBodyView : List (Html msg) -> Html msg

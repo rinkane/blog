@@ -23,3 +23,18 @@ fontColorWhite =
 backgroundColorGlobal : Style
 backgroundColorGlobal =
     backgroundColor (rgb 0xF0 0xF0 0xF0)
+
+
+aTagFontColor : List Style
+aTagFontColor =
+    [ textDecoration none
+    , fontColorWhite
+    , hover
+        [ textDecoration none
+        , fontColorWhite
+        ]
+    , active
+        [ textDecoration none
+        , fontColorWhite
+        ]
+    ]
