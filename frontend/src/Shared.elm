@@ -12,6 +12,7 @@ import Pages.PageUrl exposing (PageUrl)
 import Path exposing (Path)
 import Route exposing (Route)
 import SharedTemplate exposing (SharedTemplate)
+import Style
 import View exposing (View)
 
 
@@ -123,10 +124,22 @@ global =
             [ margin (px 0)
             ]
         , Css.Global.selector "html"
-            [ backgroundColor (rgb 0xF0 0xF0 0xF0)
+            [ Style.backgroundColorGlobal
             ]
         , Css.Global.selector "img"
             [ maxWidth (pct 100)
+            ]
+        , Css.Global.selector "a"
+            [ textDecoration none
+            , Style.fontColorWhite
+            ]
+        , Css.Global.selector "a:hover"
+            [ textDecoration none
+            , Style.fontColorWhite
+            ]
+        , Css.Global.selector "a:visited"
+            [ textDecoration none
+            , Style.fontColorWhite
             ]
         ]
 
@@ -139,7 +152,7 @@ header =
             , height (px 60)
             , boxShadow5 (px 0) (px 0) (px 5) (px 1) (rgba 0x36 0x20 0x6E 0.8)
             , backgroundColor (rgb 0x36 0x20 0x6E)
-            , color (rgb 0xFF 0xFF 0xFF)
+            , Style.fontColorWhite
             , alignItems center
             ]
         ]
@@ -163,7 +176,8 @@ header =
                     ]
                     [ text "ver0.1" ]
                 ]
-            , headerLink [ a [] [ text "Home" ] ]
+            , headerLink "/" "Home"
+            , headerLink "/about" "About"
             ]
         ]
 
@@ -181,15 +195,16 @@ headerLogo content =
         content
 
 
-headerLink : List (Html msg) -> Html msg
-headerLink content =
-    div
+headerLink : String -> String -> Html msg
+headerLink url label =
+    a
         [ css
             (headerContentCss
                 ++ [ padding2 (px 0) (px 24) ]
             )
+        , Html.Styled.Attributes.href url
         ]
-        content
+        [ text label ]
 
 
 headerContentCss : List Style

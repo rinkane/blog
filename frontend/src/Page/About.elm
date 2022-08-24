@@ -1,15 +1,12 @@
-module Page.Index exposing (Data, Model, Msg, page)
+module Page.About exposing (Data, Model, Msg, page)
 
 import Css exposing (..)
 import DataSource exposing (DataSource)
-import DataSource.HttpSource as HttpSource
-import DataSource.MarkdownSource as MarkdownSource
 import Head
 import Head.Seo as Seo
-import Html.Styled exposing (text)
-import Html.Styled.Attributes exposing (css)
+import Html.Styled
 import List
-import Page exposing (Page, StaticPayload)
+import Page exposing (Page, PageWithState, StaticPayload)
 import Pages.PageUrl exposing (PageUrl)
 import Pages.Url
 import Shared
@@ -38,9 +35,13 @@ page =
         |> Page.buildNoState { view = view }
 
 
+type alias Data =
+    ()
+
+
 data : DataSource Data
 data =
-    HttpSource.getBlog
+    DataSource.succeed ()
 
 
 head :
@@ -63,10 +64,6 @@ head static =
         |> Seo.website
 
 
-type alias Data =
-    HttpSource.Blog
-
-
 view :
     Maybe PageUrl
     -> Shared.Model
@@ -76,7 +73,10 @@ view maybeUrl sharedModel static =
     { body =
         [ Html.Styled.div
             [ Style.layoutIndex ]
-            [ Html.Styled.fromUnstyled (HttpSource.contentToHtml (HttpSource.getFirstContent static.data)) ]
+            (List.repeat
+                100
+                (Html.Styled.div [] [ Html.Styled.text "About" ])
+            )
         ]
-    , title = "Index"
+    , title = "About"
     }
