@@ -4,6 +4,8 @@ import DataSource exposing (DataSource)
 import DataSource.Http
 import Env.Environment exposing (blogRequestDetails)
 import Html exposing (Html)
+import Html.Parser
+import Html.Parser.Util
 import List
 import Markdown exposing (defaultOptions)
 import OptimizedDecoder exposing (Decoder)
@@ -13,7 +15,12 @@ import Pages.Secrets
 
 contentToHtml : Content -> Html msg
 contentToHtml content =
-    Markdown.toHtmlWith { defaultOptions | sanitize = False } [] content.content
+    case Html.Parser.run content.content of
+        Result.Ok html ->
+            Html.div [] (Html.Parser.Util.toVirtualDom html)
+
+        Result.Err err ->
+            Html.div [] []
 
 
 getFirstContent : Blog -> Content
