@@ -74,9 +74,8 @@ view :
     -> View Msg
 view maybeUrl sharedModel static =
     { body =
-        [ Html.Styled.div
-            [ Style.layoutIndex ]
-            [ Html.Styled.fromUnstyled (HttpSource.contentToHtml (HttpSource.getFirstContent static.data)) ]
-        ]
+        List.map
+            ((\content -> Html.Styled.div [ Style.layoutIndex ] [ Html.Styled.fromUnstyled content ]) << HttpSource.contentToHtml)
+            static.data.contents
     , title = "Index"
     }

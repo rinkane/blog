@@ -2,6 +2,7 @@ module Page.About exposing (Data, Model, Msg, page)
 
 import Css exposing (..)
 import DataSource exposing (DataSource)
+import DataSource.HttpSource as HttpSource
 import Head
 import Head.Seo as Seo
 import Html.Styled
@@ -36,12 +37,12 @@ page =
 
 
 type alias Data =
-    ()
+    HttpSource.Content
 
 
 data : DataSource Data
 data =
-    DataSource.succeed ()
+    HttpSource.getBlogAbout
 
 
 head :
@@ -73,10 +74,7 @@ view maybeUrl sharedModel static =
     { body =
         [ Html.Styled.div
             [ Style.layoutIndex ]
-            (List.repeat
-                100
-                (Html.Styled.div [] [ Html.Styled.text "About" ])
-            )
+            [ Html.Styled.fromUnstyled (HttpSource.contentToHtml static.data) ]
         ]
     , title = "About"
     }

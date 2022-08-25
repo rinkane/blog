@@ -2,7 +2,7 @@ module DataSource.HttpSource exposing (..)
 
 import DataSource exposing (DataSource)
 import DataSource.Http
-import Env.Environment exposing (blogRequestDetails)
+import Env.Environment exposing (blogAboutRequestDetails, blogRequestDetails)
 import Html exposing (Html)
 import Html.Parser
 import Html.Parser.Util
@@ -31,6 +31,13 @@ getFirstContent blog =
 
         Just content ->
             content
+
+
+getBlogAbout : DataSource Content
+getBlogAbout =
+    DataSource.Http.request
+        (Pages.Secrets.succeed blogAboutRequestDetails)
+        contentDecoder
 
 
 getBlog : DataSource Blog
