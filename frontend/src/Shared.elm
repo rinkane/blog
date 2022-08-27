@@ -143,6 +143,10 @@ header =
             , backgroundColor (rgb 0x36 0x20 0x6E)
             , Style.fontColorWhite
             , alignItems center
+            , position sticky
+            , top (px 0)
+            , left (px 0)
+            , zIndex (int 1000)
             ]
         ]
         [ div
