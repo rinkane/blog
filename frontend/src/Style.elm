@@ -56,6 +56,30 @@ contentCategoryView category =
         [ text category.name ]
 
 
+contentNoLinkTitleView : HttpSource.Content -> Html.Styled.Html msg
+contentNoLinkTitleView content =
+    Html.Styled.div
+        [ css
+            [ lineHeight (rem 2)
+            , height (rem 2)
+            ]
+        ]
+        [ Html.Styled.h1
+            [ css
+                [ borderBottom3 (px 2) solid (rgb 0xDD 0xDD 0xDD)
+                , padding3 (rem 0) (rem 0) (rem 0.5)
+                , marginTop (rem 1.25)
+                ]
+            ]
+            [ Html.Styled.a
+                [ css (aTagFontColor <| rgb 0x33 0x33 0x33)
+                , Html.Styled.Attributes.href "#"
+                ]
+                [ text content.title ]
+            ]
+        ]
+
+
 contentTitleView : HttpSource.Content -> Html.Styled.Html msg
 contentTitleView content =
     Html.Styled.div

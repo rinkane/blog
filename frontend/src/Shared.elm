@@ -3,6 +3,7 @@ module Shared exposing (Data, Model, Msg(..), SharedMsg(..), template)
 import Browser.Navigation
 import Css exposing (..)
 import Css.Global
+import Css.Transitions
 import DataSource
 import Html
 import Html.Styled exposing (..)
@@ -172,13 +173,14 @@ header =
 
 headerLogo : List (Html msg) -> Html msg
 headerLogo content =
-    div
+    a
         [ css
             (headerContentCss
                 ++ [ fontSize (px 24)
-                   , paddingRight (px 24)
+                   , padding2 (px 0) (px 18)
                    ]
             )
+        , Html.Styled.Attributes.href "/"
         ]
         content
 
@@ -201,6 +203,10 @@ headerContentCss =
     , height (px 60)
     , alignItems center
     , cursor pointer
+    , Css.Transitions.transition [ Css.Transitions.backgroundColor 300 ]
+    , hover
+        [ backgroundColor (rgb 0x2B 0x1A 0x58)
+        ]
     ]
         ++ Style.aTagFontColor (rgb 0xFF 0xFF 0xFF)
 

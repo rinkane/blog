@@ -112,4 +112,9 @@ pageLinkView content =
             , fontSize (rem 1)
             ]
         ]
-        [ Html.Styled.span [ css [ paddingBottom (rem 1) ] ] [ text "続きを読む" ] ]
+        [ Html.Styled.span
+            [ css
+                [ paddingBottom (rem 1) ]
+            ]
+            [ text "続きを読む" ]
+        ]
