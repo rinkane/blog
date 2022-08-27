@@ -202,7 +202,7 @@ headerContentCss =
     , alignItems center
     , cursor pointer
     ]
-        ++ Style.aTagFontColor
+        ++ Style.aTagFontColor (rgb 0xFF 0xFF 0xFF)
 
 
 pageBodyView : List (Html msg) -> Html msg

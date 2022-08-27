@@ -71,10 +71,16 @@ view :
     -> StaticPayload Data RouteParams
     -> View Msg
 view maybeUrl sharedModel static =
+    let
+        content =
+            static.data
+    in
     { body =
         [ Html.Styled.div
-            [ Style.layoutIndex ]
-            [ Html.Styled.fromUnstyled (HttpSource.contentToHtml static.data) ]
+            Style.layoutMainView
+            [ Style.contentTitleView content
+            , Style.contentPageView content
+            ]
         ]
     , title = "About"
     }
