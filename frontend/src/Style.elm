@@ -13,6 +13,7 @@ layoutIndex =
         , boxShadow5 (px 0) (px 0) (px 6) (px 1) (rgba 0x00 0x00 0x00 0.2)
         , backgroundColor (rgb 0xFF 0xFF 0xFF)
         , color (rgb 0x33 0x33 0x33)
+        , lineHeight (em 1.7)
         ]
 
 

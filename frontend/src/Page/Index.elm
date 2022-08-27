@@ -6,6 +6,7 @@ import DataSource.HttpSource as HttpSource
 import DataSource.MarkdownSource as MarkdownSource
 import Head
 import Head.Seo as Seo
+import Html
 import Html.Styled exposing (text)
 import Html.Styled.Attributes exposing (css)
 import List
@@ -74,8 +75,44 @@ view :
     -> View Msg
 view maybeUrl sharedModel static =
     { body =
-        List.map
-            ((\content -> Html.Styled.div [ Style.layoutIndex ] [ Html.Styled.fromUnstyled content ]) << HttpSource.contentToHtml)
-            static.data.contents
+        List.map contentView static.data.contents
     , title = "Index"
     }
+
+
+contentView : HttpSource.Content -> Html.Styled.Html msg
+contentView content =
+    Html.Styled.div
+        [ Style.layoutIndex ]
+        [ contentDateView content
+        , contentTitleView content
+        , content |> HttpSource.contentToHtml |> Html.Styled.fromUnstyled
+        ]
+
+
+contentDateView : HttpSource.Content -> Html.Styled.Html msg
+contentDateView content =
+    Html.Styled.div
+        [ css
+            [ margin2 (rem 0.33) (rem 0)
+            , fontSize (rem 0.75)
+            ]
+        ]
+        [ text ("公開日: " ++ content.id) ]
+
+
+contentTitleView : HttpSource.Content -> Html.Styled.Html msg
+contentTitleView content =
+    Html.Styled.div
+        []
+        [ Html.Styled.h1
+            [ css
+                [ borderBottom3 (px 2) solid (rgb 0xDD 0xDD 0xDD)
+                , height (rem 2)
+                , lineHeight (rem 2)
+                , padding3 (rem 0) (rem 0) (rem 0.5)
+                , marginTop (rem 0)
+                ]
+            ]
+            [ Html.Styled.text content.title ]
+        ]
