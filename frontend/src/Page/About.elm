@@ -60,7 +60,7 @@ head static =
             }
         , description = "TODO"
         , locale = Nothing
-        , title = "TODO title" -- metadata.title -- TODO
+        , title = "ブックオフを守る翼竜" -- metadata.title -- TODO
         }
         |> Seo.website
 
