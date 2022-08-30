@@ -2,14 +2,13 @@ module DataSource.MarkdownSource exposing (..)
 
 import DataSource exposing (DataSource)
 import DataSource.File
-import Env.Environment as Env
 import OptimizedDecoder as Decode exposing (Decoder)
 import OptimizedDecoder.Pipeline as Pipeline exposing (required)
 
 
 blogPost : DataSource BlogPostMetadata
 blogPost =
-    DataSource.File.bodyWithFrontmatter blogPostDecoder Env.blogFilePath
+    DataSource.File.bodyWithFrontmatter blogPostDecoder ""
 
 
 type alias BlogPostMetadata =

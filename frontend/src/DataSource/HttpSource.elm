@@ -4,7 +4,6 @@ import Css exposing (content)
 import DataSource exposing (DataSource)
 import DataSource.Http
 import Date
-import Env.Environment exposing (blogAboutRequestDetails, blogRequestDetails)
 import Html exposing (Html)
 import Html.Parser
 import Html.Parser.Util
@@ -15,7 +14,7 @@ import List
 import Markdown exposing (defaultOptions)
 import OptimizedDecoder exposing (Decoder)
 import OptimizedDecoder.Pipeline exposing (..)
-import Pages.Secrets
+import Pages.Secrets as Secrets
 import Time exposing (Month(..))
 
 
@@ -42,14 +41,35 @@ getFirstContent blog =
 getBlogAbout : DataSource Content
 getBlogAbout =
     DataSource.Http.request
-        (Pages.Secrets.succeed blogAboutRequestDetails)
+        (Secrets.succeed
+            (\url aboutId token ->
+                { url = url ++ "/blogs/" ++ aboutId
+                , method = "GET"
+                , headers = [ ( "X-MICROCMS-API-KEY", token ) ]
+                , body = DataSource.Http.emptyBody
+                }
+            )
+            |> Secrets.with "API_URL"
+            |> Secrets.with "ABOUT_ID"
+            |> Secrets.with "API_TOKEN"
+        )
         contentDecoder
 
 
 getBlog : DataSource Blog
 getBlog =
     DataSource.Http.request
-        (Pages.Secrets.succeed blogRequestDetails)
+        (Secrets.succeed
+            (\url token ->
+                { url = url ++ "/blogs"
+                , method = "GET"
+                , headers = [ ( "X-MICROCMS-API-KEY", token ) ]
+                , body = DataSource.Http.emptyBody
+                }
+            )
+            |> Secrets.with "API_URL"
+            |> Secrets.with "API_TOKEN"
+        )
         blogDecoder
 
 

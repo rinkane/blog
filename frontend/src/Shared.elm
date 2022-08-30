@@ -5,9 +5,12 @@ import Css exposing (..)
 import Css.Global
 import Css.Transitions
 import DataSource
+import Debug
 import Html
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css)
+import Json.Decode exposing (Decoder, decodeValue, string, succeed)
+import Json.Decode.Pipeline as JDP exposing (..)
 import Pages.Flags
 import Pages.PageUrl exposing (PageUrl)
 import Path exposing (Path)
@@ -50,6 +53,10 @@ type alias Model =
     }
 
 
+type alias Flag =
+    ()
+
+
 init :
     Maybe Browser.Navigation.Key
     -> Pages.Flags.Flags
@@ -65,7 +72,8 @@ init :
             }
     -> ( Model, Cmd Msg )
 init navigationKey flags maybePagePath =
-    ( { showMobileMenu = False }
+    ( { showMobileMenu = False
+      }
     , Cmd.none
     )
 

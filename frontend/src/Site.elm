@@ -1,7 +1,6 @@
 module Site exposing (config)
 
 import DataSource
-import Env.Environment as Env
 import Head
 import MimeType
 import Pages.Manifest as Manifest
@@ -9,6 +8,7 @@ import Pages.Url exposing (Url)
 import Path
 import Route
 import SiteConfig exposing (SiteConfig)
+import Url
 
 
 type alias Data =
@@ -31,7 +31,7 @@ data =
 
 head : Data -> List Head.Tag
 head _ =
-    [ Head.icon [ ( 192, 192 ) ] MimeType.Png Env.iconUrl ]
+    [ Head.icon [ ( 192, 192 ) ] MimeType.Png (Pages.Url.fromPath (Path.fromString "icon.png")) ]
 
 
 manifest : Data -> Manifest.Config
@@ -41,10 +41,5 @@ manifest _ =
         , description = "Void"
         , startUrl = Route.Index |> Route.toPath
         , icons =
-            [ { src = Env.iconUrl
-              , sizes = [ ( 192, 192 ) ]
-              , mimeType = Just MimeType.Png
-              , purposes = [ Manifest.IconPurposeAny ]
-              }
-            ]
+            []
         }
