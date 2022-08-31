@@ -97,7 +97,7 @@ contentTitleView content =
             ]
             [ Html.Styled.a
                 [ css (aTagFontColor <| rgb 0x33 0x33 0x33)
-                , Html.Styled.Attributes.href ("blog/" ++ content.id)
+                , Html.Styled.Attributes.href ("/blog/" ++ content.id)
                 ]
                 [ text content.title ]
             ]

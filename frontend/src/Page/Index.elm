@@ -98,7 +98,7 @@ contentView content =
 pageLinkView : HttpSource.Content -> Html.Styled.Html msg
 pageLinkView content =
     Html.Styled.a
-        [ Html.Styled.Attributes.href ("blog/" ++ content.id)
+        [ Html.Styled.Attributes.href ("/blog/" ++ content.id)
         , css
             [ position absolute
             , bottom (px 0)
