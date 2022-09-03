@@ -18,6 +18,6 @@ map fn doc =
 
 placeholder : String -> View msg
 placeholder moduleName =
-    { title = "ブックオフを守る翼竜"
+    { title = "輪禍rnation"
     , body = [ text moduleName ]
     }

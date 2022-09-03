@@ -65,7 +65,7 @@ view :
 view maybeUrl sharedModel static =
     { body =
         List.map contentView static.data.contents
-    , title = "ブックオフを守る翼竜"
+    , title = "輪禍rnation"
     }
 
 

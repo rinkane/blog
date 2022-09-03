@@ -168,7 +168,7 @@ header =
                 ]
             ]
             [ headerLogo
-                [ text "ブックオフを守る翼竜"
+                [ text "輪禍rnation"
                 , div
                     [ css
                         [ fontSize (px 14)
@@ -251,7 +251,7 @@ seoBase :
     }
 seoBase =
     { canonicalUrlOverride = Nothing
-    , siteName = "ブックオフを守る翼竜"
+    , siteName = "輪禍rnation"
     , image =
         { url = Pages.Url.fromPath (Path.fromString "icon.png?width=175&height=175")
         , alt = "rinkane header image"
@@ -260,5 +260,5 @@ seoBase =
         }
     , description = "rinkane's personal journal"
     , locale = Just "ja_JP"
-    , title = "ブックオフを守る翼竜" -- metadata.title -- TODO
+    , title = "輪禍rnation" -- metadata.title -- TODO
     }

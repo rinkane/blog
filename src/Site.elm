@@ -37,7 +37,7 @@ head _ =
 manifest : Data -> Manifest.Config
 manifest _ =
     Manifest.init
-        { name = "ブックオフを守る翼竜"
+        { name = "輪禍rnation"
         , description = "rinkane's personal journal"
         , startUrl = Route.Index |> Route.toPath
         , icons =
