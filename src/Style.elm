@@ -12,7 +12,6 @@ contentPageView content =
     Html.Styled.div
         [ css
             [ Css.lineHeight (Css.rem 1.7)
-            , Css.paddingTop (Css.rem 1)
             , Css.maxHeight (Css.pct 100)
             ]
         ]
@@ -60,8 +59,8 @@ contentNoLinkTitleView : HttpSource.Content -> Html.Styled.Html msg
 contentNoLinkTitleView content =
     Html.Styled.div
         [ css
-            [ lineHeight (rem 2)
-            , height (rem 2)
+            [ lineHeight (rem 2.5)
+            , minWidth fitContent
             ]
         ]
         [ Html.Styled.h1
@@ -84,8 +83,8 @@ contentTitleView : HttpSource.Content -> Html.Styled.Html msg
 contentTitleView content =
     Html.Styled.div
         [ css
-            [ lineHeight (rem 2)
-            , height (rem 2)
+            [ lineHeight (rem 2.5)
+            , minWidth fitContent
             ]
         ]
         [ Html.Styled.h1
