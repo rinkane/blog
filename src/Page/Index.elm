@@ -48,20 +48,8 @@ data =
 head :
     StaticPayload Data RouteParams
     -> List Head.Tag
-head static =
-    Seo.summary
-        { canonicalUrlOverride = Nothing
-        , siteName = "elm-pages"
-        , image =
-            { url = Pages.Url.external "TODO"
-            , alt = "elm-pages logo"
-            , dimensions = Nothing
-            , mimeType = Nothing
-            }
-        , description = "TODO"
-        , locale = Nothing
-        , title = "ブックオフを守る翼竜" -- metadata.title -- TODO
-        }
+head _ =
+    Seo.summary Shared.seoBase
         |> Seo.website
 
 
