@@ -1,4 +1,4 @@
-module Shared exposing (Data, Model, Msg(..), SharedMsg(..), template)
+module Shared exposing (Data, Model, Msg(..), SharedMsg(..), seoBase, template)
 
 import Browser.Navigation
 import Css exposing (..)
@@ -6,6 +6,7 @@ import Css.Global
 import Css.Transitions
 import DataSource
 import Debug
+import Head.Seo
 import Html
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css)
@@ -13,6 +14,7 @@ import Json.Decode exposing (Decoder, decodeValue, string, succeed)
 import Json.Decode.Pipeline as JDP exposing (..)
 import Pages.Flags
 import Pages.PageUrl exposing (PageUrl)
+import Pages.Url
 import Path exposing (Path)
 import Route exposing (Route)
 import SharedTemplate exposing (SharedTemplate)
@@ -237,3 +239,26 @@ pageBodyView content =
 pageMaxWidth : Style
 pageMaxWidth =
     maxWidth (Css.em 50)
+
+
+seoBase :
+    { canonicalUrlOverride : Maybe String
+    , siteName : String
+    , image : Head.Seo.Image
+    , description : String
+    , title : String
+    , locale : Maybe String
+    }
+seoBase =
+    { canonicalUrlOverride = Nothing
+    , siteName = "ブックオフを守る翼竜"
+    , image =
+        { url = Pages.Url.fromPath (Path.fromString "icon.png?width=175&height=175")
+        , alt = "rinkane header image"
+        , dimensions = Just { width = 175, height = 175 }
+        , mimeType = Just "image/png"
+        }
+    , description = "rinkane's personal journal"
+    , locale = Just "ja_JP"
+    , title = "ブックオフを守る翼竜" -- metadata.title -- TODO
+    }

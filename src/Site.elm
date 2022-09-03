@@ -18,7 +18,7 @@ type alias Data =
 config : SiteConfig Data
 config =
     { data = data
-    , canonicalUrl = "https://images.microcms-assets.io/assets"
+    , canonicalUrl = "https://www.rinkaneisdead.ml/"
     , manifest = manifest
     , head = head
     }
@@ -31,15 +31,20 @@ data =
 
 head : Data -> List Head.Tag
 head _ =
-    [ Head.icon [ ( 192, 192 ) ] MimeType.Png (Pages.Url.fromPath (Path.fromString "icon.png")) ]
+    [ Head.icon [ ( 175, 175 ) ] MimeType.Png (Pages.Url.fromPath (Path.fromString "icon.png")) ]
 
 
 manifest : Data -> Manifest.Config
 manifest _ =
     Manifest.init
-        { name = "Site Name"
-        , description = "Void"
+        { name = "ブックオフを守る翼竜"
+        , description = "rinkane's personal journal"
         , startUrl = Route.Index |> Route.toPath
         , icons =
-            []
+            [ { src = Pages.Url.fromPath (Path.fromString "icon.png")
+              , sizes = [ ( 175, 175 ) ]
+              , mimeType = Just MimeType.Png
+              , purposes = [ Manifest.IconPurposeAny ]
+              }
+            ]
         }
