@@ -3,6 +3,7 @@ module Page.Blog.Slug_ exposing (Data, Model, Msg, page)
 import Css
 import DataSource exposing (DataSource)
 import DataSource.HttpSource as HttpSource
+import Date
 import Head
 import Head.Seo as Seo
 import Html.Styled
@@ -11,8 +12,9 @@ import Page exposing (Page, PageWithState, StaticPayload)
 import Pages.PageUrl exposing (PageUrl)
 import Pages.Url
 import Path
-import Shared
+import Shared exposing (seoBase)
 import Style
+import Time exposing (Month(..))
 import View exposing (View)
 
 
@@ -53,19 +55,38 @@ routes =
 
 data : RouteParams -> DataSource Data
 data routeParams =
-    HttpSource.getBlog
+    DataSource.map
+        (\blog ->
+            List.filter (\content -> content.id == routeParams.slug) blog.contents |> List.head
+        )
+        HttpSource.getBlog
 
 
 head :
     StaticPayload Data RouteParams
     -> List Head.Tag
-head _ =
-    Seo.summary Shared.seoBase
+head static =
+    let
+        content =
+            case static.data of
+                Just a ->
+                    a
+
+                Nothing ->
+                    { id = ""
+                    , title = ""
+                    , content = ""
+                    , createdAt = Date.fromCalendarDate 2022 Sep 3
+                    , updatedAt = Date.fromCalendarDate 2022 Sep 3
+                    , category = []
+                    }
+    in
+    Seo.summary { seoBase | title = content.title, description = content.content }
         |> Seo.website
 
 
 type alias Data =
-    HttpSource.Blog
+    Maybe HttpSource.Content
 
 
 view :
@@ -74,11 +95,7 @@ view :
     -> StaticPayload Data RouteParams
     -> View Msg
 view maybeUrl sharedModel static =
-    let
-        maybeBody =
-            List.filter (\content -> content.id == (static.path |> Path.toSegments |> List.reverse |> List.head |> Maybe.withDefault "")) static.data.contents |> List.head
-    in
-    case maybeBody of
+    case static.data of
         Nothing ->
             View.placeholder "Empty..."
 

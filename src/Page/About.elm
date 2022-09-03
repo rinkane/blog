@@ -10,7 +10,7 @@ import List
 import Page exposing (Page, PageWithState, StaticPayload)
 import Pages.PageUrl exposing (PageUrl)
 import Pages.Url
-import Shared
+import Shared exposing (seoBase)
 import Style
 import View exposing (View)
 
@@ -48,8 +48,8 @@ data =
 head :
     StaticPayload Data RouteParams
     -> List Head.Tag
-head _ =
-    Seo.summary Shared.seoBase
+head static =
+    Seo.summary { seoBase | title = "About", description = static.data.content }
         |> Seo.website
 
 
