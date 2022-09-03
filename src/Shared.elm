@@ -9,7 +9,7 @@ import Debug
 import Head.Seo
 import Html
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (css)
+import Html.Styled.Attributes exposing (css, src)
 import Json.Decode exposing (Decoder, decodeValue, string, succeed)
 import Json.Decode.Pipeline as JDP exposing (..)
 import Pages.Flags
@@ -140,6 +140,9 @@ global =
         , Css.Global.selector "img"
             [ maxWidth (pct 100)
             ]
+        , Css.Global.selector "iframe"
+            [ maxWidth (pct 100)
+            ]
         ]
 
 
@@ -165,19 +168,11 @@ header =
                 , pageMaxWidth
                 , displayFlex
                 , margin2 (px 0) auto
+                , overflow auto
                 ]
             ]
             [ headerLogo
-                [ text "輪禍rnation"
-                , div
-                    [ css
-                        [ fontSize (px 14)
-                        , marginLeft (rem 0.25)
-                        , position relative
-                        , top (rem 0.25)
-                        ]
-                    ]
-                    [ text "ver0.1" ]
+                [ img [ src "/logo.svg", css [ maxWidth (px 130), height auto ] ] []
                 ]
             , headerLink "/" "Home"
             , headerLink "/about" "About"
@@ -191,7 +186,7 @@ headerLogo content =
         [ css
             (headerContentCss
                 ++ [ fontSize (px 24)
-                   , padding2 (px 0) (px 18)
+                   , padding2 (px 0) (px 12)
                    ]
             )
         , Html.Styled.Attributes.href "/"
@@ -204,7 +199,7 @@ headerLink url label =
     a
         [ css
             (headerContentCss
-                ++ [ padding2 (px 0) (px 24) ]
+                ++ [ padding2 (px 0) (px 12) ]
             )
         , Html.Styled.Attributes.href url
         ]
